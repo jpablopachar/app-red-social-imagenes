@@ -2,9 +2,11 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const morgan = require('morgan');
 const multer = require('multer');
+const errorHandler = require('errorhandler');
 const path = require('path');
 
 const help = require('./helpers');
+const routes = require('../routes/index');
 
 module.exports = (app) => {
   /*                  Ajustes                     */
@@ -33,8 +35,13 @@ module.exports = (app) => {
   app.use(express.json());
 
   /*                    Rutas                     */
+  routes(app);
+
+  /*             Archivos Estáticos                */
+  app.use('/public', express.static(path.join(__dirname, 'public')));
 
   /*             Manejador de errores             */
+  if ('development' === app.get('env')) app.use(errorHandler);
 
   return app;
 };
