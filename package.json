@@ -23,5 +23,20 @@
   "bugs": {
     "url": "https://github.com/jpablopachar/app-red-social-imagenes/issues"
   },
-  "homepage": "https://github.com/jpablopachar/app-red-social-imagenes#readme"
+  "homepage": "https://github.com/jpablopachar/app-red-social-imagenes#readme",
+  "dependencies": {
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "fs-extra": "^7.0.1",
+    "md5": "^2.2.1",
+    "mongoose": "^5.4.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
 }
