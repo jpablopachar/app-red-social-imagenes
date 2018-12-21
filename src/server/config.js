@@ -28,7 +28,7 @@ module.exports = (app) => {
   /*                 Middleware                   */
   app.use(morgan('dev'));
   // Coloca una sola imagen en la ruta establecida
-  app.use(multer({ dest: path.join(__dirname, '../public/upload/temp')}).single('imagen'));
+  app.use(multer({ dest: path.join(__dirname, '../public/upload/temp') }).single('imagen'));
   // Recibe los datos que vienen desde formularios
   app.use(express.urlencoded({ extended: false }));
   // Convierte los objetos a json
