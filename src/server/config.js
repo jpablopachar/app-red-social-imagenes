@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.set('port', process.env.PORT || 3000);
 
   /*                   Vistas                      */
-  app.set('views', path.join(__dirname, 'views'));
+  app.set('views', path.join(__dirname, '../views'));
   app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -23,7 +23,7 @@ module.exports = (app) => {
     // helpers: require('./helpers'),
     helpers: help,
   }));
-  app.set('view engine', 'hbs');
+  app.set('view engine', '.hbs');
 
   /*                 Middleware                   */
   app.use(morgan('dev'));
@@ -38,7 +38,7 @@ module.exports = (app) => {
   routes(app);
 
   /*             Archivos Estáticos                */
-  app.use('/public', express.static(path.join(__dirname, 'public')));
+  app.use('/public', express.static(path.join(__dirname, '../public')));
 
   /*             Manejador de errores             */
   if ('development' === app.get('env')) app.use(errorHandler);

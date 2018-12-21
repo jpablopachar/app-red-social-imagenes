@@ -1,5 +1,9 @@
+const router = require('express').Router();
+
+const indexController = require('../controllers/index');
+
 module.exports = (app) => {
-  app.get('/', (req, res) => {
-    res.send('Página inicial');
-  });
+  router.get('/', indexController.index);
+
+  app.use(router);
 };
