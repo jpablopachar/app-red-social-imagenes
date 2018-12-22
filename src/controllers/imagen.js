@@ -18,7 +18,6 @@ controller.agregar = (req, res) => {
     if (imagenes.length > 0) {
       guardarImagen();
     } else {
-      console.log(imagenUrl);
       // Dirección donde se encuentra la imágen
       const imagenTempPath = req.file.path;
       // Extensión de la imágen

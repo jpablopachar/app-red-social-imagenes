@@ -24,3 +24,17 @@
     </form>
   </div>
 </div>
+<div class="card mt-2">
+  <div class="card-header bg-dark">
+    <h3><i class="far fa-images"></i> Subidas recientes</h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      {{#each imagenes }}
+        <div class="col-md-4">
+          <a href="/imagenes/{{idUnico}}"><img src="/public/upload/{{nombreArchivo}}" alt="Imágen" class="w-100 h-100 img-thumbnail"></a>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

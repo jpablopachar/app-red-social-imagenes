@@ -9,7 +9,7 @@ const ImagenSchema = new Schema({
   nombreArchivo: { type: String },
   vistas: { type: Number, default: 0 },
   meGustas: { type: Number, default: 0 },
-  fechaCreación: { type: Date, default: Date.now() },
+  fechaCreacion: { type: Date, default: Date.now() },
 });
 
 ImagenSchema.virtual('idUnico').get(function () {
