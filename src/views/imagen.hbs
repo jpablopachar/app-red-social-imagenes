@@ -38,5 +38,18 @@
         </div>
       </form>
     </blockquote>
+    <ul class="list-group p-4">
+      {{#each comentarios}}
+        <li class="list-group-item">
+          <div class="row">
+            <a href="#" class="col text-center"><img src="http://gravatar.com/avatar/{{gravatar}}?d=monsterid&s=45" alt="Imagen gravatar"></a>
+            <blockquote class="col">
+              <p class="lead">{{comentario}}</p>
+              <footer class="blockquote-footer">{{nombre}} - {{tiempoAtras fechaCreacion}}</footer>
+            </blockquote>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
   </div>
 </div>

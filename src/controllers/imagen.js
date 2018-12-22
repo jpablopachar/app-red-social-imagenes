@@ -11,8 +11,8 @@ controller.index = async (req, res) => {
   // Busca y almacena la imagen que coincida con su nombre
   const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
 
-  console.log(imagen);
-  res.render('imagen', { imagen });
+  const comentarios = await Comentario.find({ imagenId: imagen._id });
+  res.render('imagen', { imagen, comentarios });
 };
 
 controller.agregar = (req, res) => {
