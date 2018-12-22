@@ -1,13 +1,18 @@
+const md5 = require('md5');
 const fs = require('fs-extra');
 const path = require('path');
 
-const { Imagen } = require('../models');
+const { Imagen, Comentario } = require('../models');
 const { numeroAleatorio } = require('../helpers/libs');
 
 const controller = {};
 
-controller.index = (req, res) => {
-  // res.render('index');
+controller.index = async (req, res) => {
+  // Busca y almacena la imagen que coincida con su nombre
+  const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
+
+  console.log(imagen);
+  res.render('imagen', { imagen });
 };
 
 controller.agregar = (req, res) => {
@@ -35,8 +40,7 @@ controller.agregar = (req, res) => {
         });
         const imagenAlmacenada = await nuevaImagen.save();
 
-        // res.redirect('/imagenes');
-        res.send('recibido');
+        res.redirect('/imagenes/', imagenUrl);
       } else {
         // Elimina las imágenes de la carpeta temp del servidor
         await fs.unlink(imagenTempPath);
@@ -46,6 +50,20 @@ controller.agregar = (req, res) => {
   };
 
   guardarImagen();
+};
+
+controller.comentar = async (req, res) => {
+  const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
+
+  if (imagen) {
+    const nuevoComentario = new Comentario(req.body);
+
+    nuevoComentario.gravatar = md5(nuevoComentario.correo);
+    nuevoComentario.imagenId = imagen._id;
+
+    await nuevoComentario.save();
+    res.redirect('/imagenes/', imagen.idUnico);
+  }
 };
 
 module.exports = controller;
