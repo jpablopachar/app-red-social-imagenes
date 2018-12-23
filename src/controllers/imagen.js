@@ -81,4 +81,17 @@ controller.comentar = async (req, res) => {
   }
 };
 
+controller.meGusta = async (req, res) => {
+  const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
+
+  if (imagen) {
+    imagen.meGustas += 1;
+
+    await imagen.save();
+    res.json({ meGustas: imagen.meGustas });
+  } else {
+    res.status(500).json({ error: 'Error interno' });
+  }
+};
+
 module.exports = controller;

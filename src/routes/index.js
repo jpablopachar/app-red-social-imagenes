@@ -8,6 +8,7 @@ module.exports = (app) => {
   router.get('/imagenes/:imagenId', imagenController.index);
   router.post('/imagenes', imagenController.agregar);
   router.post('/imagenes/:imagenId/comentario', imagenController.comentar);
+  router.post('/imagenes/:imagenId/meGusta', imagenController.meGusta);
 
   app.use(router);
 };
