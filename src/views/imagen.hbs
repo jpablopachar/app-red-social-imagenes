@@ -22,7 +22,7 @@
     <button class="btn btn-info" id="btn-palanca-comentario"><i class="fa fa-comment-o"></i> Publica un comentario</button>
   </div>
   <div class="card-body">
-    <blockquote>
+    <blockquote id="mostrar-comentario">
       <form action="/imagenes/{{imagen.idUnico}}/comentario" method="POST">
         <div class="form-group">
           <input type="text" class="form-control" name="nombre" placeholder="Nombre">

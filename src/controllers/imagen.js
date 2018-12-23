@@ -94,4 +94,18 @@ controller.meGusta = async (req, res) => {
   }
 };
 
+controller.eliminar = async (req, res) => {
+  const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
+
+  if (imagen) {
+    await fs.unlink(path.resolve('./src/public/upload/', imagen.nombreArchivo));
+    await Comentario.deleteOne({ imagenId: imagen._id });
+    await imagen.remove();
+    res.json(true);
+    // res.redirect('/');
+  } else {
+    res.status(500).json({ error: 'Error interno' });
+  }
+};
+
 module.exports = controller;
