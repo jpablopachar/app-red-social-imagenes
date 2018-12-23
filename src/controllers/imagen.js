@@ -8,11 +8,24 @@ const { numeroAleatorio } = require('../helpers/libs');
 const controller = {};
 
 controller.index = async (req, res) => {
+  const vistaModelo = { imagen: {}, comentarios: {} };
   // Busca y almacena la imagen que coincida con su nombre
   const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
 
-  const comentarios = await Comentario.find({ imagenId: imagen._id });
-  res.render('imagen', { imagen, comentarios });
+  if (imagen) {
+    imagen.vistas += 1;
+    vistaModelo.imagen = imagen;
+
+    await imagen.save();
+
+    const comentarios = await Comentario.find({ imagenId: imagen._id });
+
+    vistaModelo.comentarios = comentarios;
+
+    res.render('imagen', { imagen, comentarios });
+  } else {
+    res.redirect('/');
+  }
 };
 
 controller.agregar = (req, res) => {
@@ -63,6 +76,8 @@ controller.comentar = async (req, res) => {
 
     await nuevoComentario.save();
     res.redirect('/imagenes/', imagen.idUnico);
+  } else {
+    res.redirect('/');
   }
 };
 
