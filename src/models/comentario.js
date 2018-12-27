@@ -9,4 +9,10 @@ const ComentarioSchema = new Schema({
   fechaCreacion: { type: Date, default: Date.now() },
 });
 
+ComentarioSchema.virtual('imagen').set(function(imagen) {
+  this._imagen = imagen;
+}).get(function() {
+  return this._imagen;
+});
+
 module.exports = model('Comentario', ComentarioSchema);

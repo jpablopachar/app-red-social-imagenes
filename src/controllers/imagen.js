@@ -4,11 +4,12 @@ const path = require('path');
 
 const { Imagen, Comentario } = require('../models');
 const { numeroAleatorio } = require('../helpers/libs');
+const sidebar = require('../helpers/sidebar');
 
 const controller = {};
 
 controller.index = async (req, res) => {
-  const vistaModelo = { imagen: {}, comentarios: {} };
+  let vistaModelo = { imagen: {}, comentarios: {} };
   // Busca y almacena la imagen que coincida con su nombre
   const imagen = await Imagen.findOne({ nombreArchivo: { $regex: req.params.imagenId } });
 
@@ -21,8 +22,9 @@ controller.index = async (req, res) => {
     const comentarios = await Comentario.find({ imagenId: imagen._id });
 
     vistaModelo.comentarios = comentarios;
+    vistaModelo = await sidebar(vistaModelo);
 
-    res.render('imagen', { imagen, comentarios });
+    res.render('imagen', vistaModelo);
   } else {
     res.redirect('/');
   }
@@ -53,7 +55,8 @@ controller.agregar = (req, res) => {
         });
         const imagenAlmacenada = await nuevaImagen.save();
 
-        res.redirect('/imagenes/', imagenUrl);
+        // res.redirect('/imagenes/', imagenUrl);
+        res.redirect(`/imagenes/${imagenUrl}`);
       } else {
         // Elimina las imágenes de la carpeta temp del servidor
         await fs.unlink(imagenTempPath);
@@ -75,7 +78,7 @@ controller.comentar = async (req, res) => {
     nuevoComentario.imagenId = imagen._id;
 
     await nuevoComentario.save();
-    res.redirect('/imagenes/', imagen.idUnico);
+    res.redirect(`/imagenes/${imagen.idUnico}`);
   } else {
     res.redirect('/');
   }
